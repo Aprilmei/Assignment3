@@ -56,7 +56,12 @@ def calculate_light():
             number+=light[i][j]
     return number
 
-def switch_light(link):
+def switch_light():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input', help='input help')
+    args = parser.parse_args()
+
+    link = args.input
     global light
     global N
     buffer=read_url(link)
@@ -86,13 +91,7 @@ def switch_light(link):
             read_command(values[0],numbers_line)
     print(link,calculate_light())
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--input', help='input help')
-args = parser.parse_args()
 
-uri = args.input
-
-switch_light(uri)
 '''
 uri_a = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_a.txt"
 uri_b = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_b.txt"
