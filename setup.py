@@ -8,7 +8,7 @@ setup(name="A3Mei_Fangxue_15210672",
       author_email="sanchiyou@msn.cn",
       licence="GPL3",
       entry_points={
-          'console_scripts':['comp30670_systeminfo=systeminfo.main:main']
+          'console_scripts':['A3Mei_Fangxue_15210672=A3Mei_Fangxue_15210672.light_test:switch_light']
           }
       #Github  https://github.com/Aprilmei/Assignment3.git
       )
