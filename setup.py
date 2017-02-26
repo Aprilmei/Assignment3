@@ -1,8 +1,13 @@
 from setuptools import setup
+import sys
 
-setup(name="light_test",
-      version="0.1",
-      description="Basic system information for COMP30670",
+egg_path='/home/ubuntu/anaconda3/envs/venv3/lib/python3.6/site-packages/A3-0.1-py3.6.egg'
+
+sys.path.append(egg_path)
+
+setup(name="A3Mei_Fangxue_15210672",
+      version="0.2",
+      description="Led test for science building",
       url="",
       author="Mei Fangxue",
       author_email="sanchiyou@msn.cn",
