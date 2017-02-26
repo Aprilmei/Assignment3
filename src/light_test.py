@@ -1,9 +1,8 @@
 
-import os
 import urllib.request
 import re
 import argparse
-from numpy import number
+
 
 light=[0]
 N=0
@@ -89,7 +88,12 @@ def switch_light():
         elif(values[0]=='turn' and values[1]=='on'):
             values[0]='on'
             read_command(values[0],numbers_line)
-    print(link,calculate_light())
+    print(link ,calculate_light())
+    return light
+
+if __name__=='__main__':
+    switch_light()
+   
 
 
 '''
