@@ -89,7 +89,7 @@ def switch_light():
             values[0]='on'
             read_command(values[0],numbers_line)
     print(link ,calculate_light())
-    return light
+  
 
 
    
