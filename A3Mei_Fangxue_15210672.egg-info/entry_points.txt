@@ -1,0 +1,3 @@
+[console_scripts]
+A3Mei_Fangxue_15210672 = A3Mei_Fangxue_15210672.light_test:switch_light
+

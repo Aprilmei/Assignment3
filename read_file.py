@@ -1,17 +1,5 @@
-
+# use readlines to read a line a time
 import os
-import urllib.request
-import argparse
-
-# request
-def read_url(link):
-    req = urllib.request.urlopen(link)
-    content = req.read().decode('utf-8')
-    content_lines=content.splitlines() 
-    return content_lines
-
-
-
 
 def read_command(command,x,y):
     global light #2d list for light 
@@ -20,7 +8,7 @@ def read_command(command,x,y):
     x2=y[0]+1
     y2=y[1]+1
     #this is the control the light 
-    #print(command,x1,x2,y1,y2)
+    print(command,x1,x2,y1,y2)
     for i in range(x1,x2):
         for j in range(y1,y2):
             if(light[i][j]==0):
@@ -47,20 +35,17 @@ def calculate_light():
         for j in range(1000):
             number+=light[i][j]
     print(number)
+    
+filename = "input_assign3.txt"
+        
+# read the whole file into a buffer
+buffer =open(filename,'r', encoding='UTF-8');
 
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--input', help='input help')
-args = parser.parse_args()
-
-uri = args.input
-#  uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
-buffer=read_url(uri)
-firstLine = buffer[0]
+firstLine = buffer.readline()
 print(firstLine)
 N=int(firstLine)
 light=[ [0]*N for _ in range(N) ]
-for line in buffer[1:]:
+for line in buffer:
     # process line   
     #print(line)
     xn=[0]*2
@@ -71,13 +56,13 @@ for line in buffer[1:]:
         y=values[3].split(',')
         xn= [int(e) for e in x]
         yn= [int(e) for e in y]
-    elif(values[1]=='off'):
+    elif(values[0]=='turn' and values[1]=='off'):
         values[0]='off'
         x=values[2].split(',')
         y=values[4].split(',')
         xn= [int(e) for e in x]
         yn= [int(e) for e in y]
-    elif(values[1]=='on'):
+    elif(values[0]=='turn' and values[1]=='on'):
         values[0]='on'
         x=values[2].split(',')
         y=values[4].split(',')
@@ -85,7 +70,5 @@ for line in buffer[1:]:
         yn= [int(e) for e in y]        
     read_command(values[0],xn,yn)
 calculate_light()
-
-
-
+buffer.close();
 

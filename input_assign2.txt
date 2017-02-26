@@ -1,0 +1,16 @@
+1000
+turn on 0,99 through 0,99
+turn off 0,99 through 0,99
+switch 100,199 through 100,199
+turn on 300,399 through 300,399
+switch 100,199 through 100,199
+turn on 0,99 through 0,99
+turn off 0,99 through 0,99
+switch 100,199 through 100,199
+turn on 300,399 through 300,399
+switch 100,199 through 100,199
+turn on 0,99 through 0,99
+turn off 0,99 through 0,99
+switch 100,199 through 100,199
+turn on 300,399 through 300,399
+switch 100,199 through 100,199
