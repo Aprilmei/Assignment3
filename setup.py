@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name="A3",
+setup(name="light_test",
       version="0.1",
       description="Basic system information for COMP30670",
       url="",

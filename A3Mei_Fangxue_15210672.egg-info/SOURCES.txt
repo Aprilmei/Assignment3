@@ -1,5 +1,0 @@
-A3Mei_Fangxue_15210672.egg-info/PKG-INFO
-A3Mei_Fangxue_15210672.egg-info/SOURCES.txt
-A3Mei_Fangxue_15210672.egg-info/dependency_links.txt
-A3Mei_Fangxue_15210672.egg-info/entry_points.txt
-A3Mei_Fangxue_15210672.egg-info/top_level.txt
