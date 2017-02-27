@@ -9,7 +9,7 @@ setup(name="led_tester",
       licence="GPL3",
       package=['src'],
       entry_points={
-          'console_scripts':['led_tester=src.light_test:switch_light']
+          'console_scripts':['led_tester=A3.light:switch_light']
           }
       #Github  https://github.com/Aprilmei/Assignment3.git
       )
