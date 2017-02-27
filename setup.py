@@ -7,7 +7,7 @@ setup(name="ledtester",
       author="Mei Fangxue",
       author_email="sanchiyou@msn.cn",
       licence="GPL3",
-      package=['ledtester'],
+      packages=['ledtester'],
       entry_points={
           'console_scripts':['led_tester=ledtester.light:switch_light']
           }
