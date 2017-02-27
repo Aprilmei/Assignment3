@@ -96,7 +96,8 @@ def switch_light():
     print(link ,calculate_light())
   
 
-
+if __name__=='__main__':
+    light()
    
 
 
