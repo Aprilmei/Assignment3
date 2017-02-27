@@ -1,14 +1,34 @@
-# use readlines to read a line a time
-import os
+'''
+Created on 27 Feb 2017
 
-def read_command(command,x,y):
+@author: April
+'''
+
+import urllib.request
+import re
+import argparse
+from sklearn.metrics.cluster.unsupervised import check_number_of_labels
+
+
+light=[0]
+N=0
+# request
+def read_url(link):
+    req = urllib.request.urlopen(link)
+    content = req.read().decode('utf-8')
+    content_lines=content.splitlines() 
+    return content_lines
+
+
+def read_command(command,x):
     global light #2d list for light 
     x1=x[0]
     y1=x[1]
-    x2=y[0]+1
-    y2=y[1]+1
+    x2=x[2]+1
+    y2=x[3]+1
+   
     #this is the control the light 
-    print(command,x1,x2,y1,y2)
+    #print(command,x1,x2,y1,y2)
     for i in range(x1,x2):
         for j in range(y1,y2):
             if(light[i][j]==0):
@@ -31,44 +51,63 @@ def read_command(command,x,y):
 def calculate_light():
     global light
     number=0
-    for i in range(1000):
-        for j in range(1000):
+    for i in range(N):
+        for j in range(N):
             number+=light[i][j]
-    print(number)
-    
-filename = "input_assign3.txt"
-        
-# read the whole file into a buffer
-buffer =open(filename,'r', encoding='UTF-8');
+    return number
 
-firstLine = buffer.readline()
-print(firstLine)
-N=int(firstLine)
-light=[ [0]*N for _ in range(N) ]
-for line in buffer:
+def check_command(num_list):
+    for i in range(len(num_list)):
+        if(num_list[i]<0):
+            num_list[i]=0
+        if(num_list[i]>N):
+            num_list[i]=N-1
+    return num_list
+
+def switch_light(link):
+    
+    global light
+    global N
+    buffer=read_url(link)
+    firstLine = buffer[0]
+    N=int(firstLine)
+    light=[ [0]*N for _ in range(N) ]
+    for line in buffer[1:]:
     # process line   
-    #print(line)
-    xn=[0]*2
-    yn=[0]*2    
-    values = line.strip().split()           
-    if(values[0]=='switch'):
-        x=values[1].split(',')
-        y=values[3].split(',')
-        xn= [int(e) for e in x]
-        yn= [int(e) for e in y]
-    elif(values[0]=='turn' and values[1]=='off'):
-        values[0]='off'
-        x=values[2].split(',')
-        y=values[4].split(',')
-        xn= [int(e) for e in x]
-        yn= [int(e) for e in y]
-    elif(values[0]=='turn' and values[1]=='on'):
-        values[0]='on'
-        x=values[2].split(',')
-        y=values[4].split(',')
-        xn= [int(e) for e in x]
-        yn= [int(e) for e in y]        
-    read_command(values[0],xn,yn)
-calculate_light()
-buffer.close();
+        numbers_line=re.findall(r'\d+', line)
+        numbers_line= [int(e) for e in numbers_line]
+        Not_consistent=False
+        if(numbers_line[0]>numbers_line[2] or numbers_line[1]>numbers_line[3]):
+            Not_consistent=True
+        if(len(numbers_line)!=4 or Not_consistent):
+            break
+        check_command(numbers_line)
+        values = line.strip().split()           
+        if(values[0]=='switch'):
+            values[0]='switch'
+        elif(values[0]=='turn' and values[1]=='off'):
+            values[0]='off'
+        elif(values[0]=='turn' and values[1]=='on'):
+            values[0]='on'
+        read_command(values[0],numbers_line)
+    print(link ,calculate_light())
+    return 
+
+
+uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_b_v2.txt"
+switch_light(uri)
+'''
+uri_a = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_a.txt"
+uri_b = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_b.txt"
+
+uri_d = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_d.txt"
+
+
+switch_light(uri_a)
+switch_light(uri_b)
+
+switch_light(uri_d)
+'''
+
+
 

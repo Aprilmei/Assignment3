@@ -23,14 +23,8 @@ def read_command(command,x):
     global light #2d list for light 
     x1=x[0]
     y1=x[1]
-    x2=x[2]
-    y2=x[3]
-    if(x1>x2):
-        x1,x2=x2,x1
-    if(y1>y2):
-        y1,y2=y2,y1
-    x2+=1
-    y2+=1
+    x2=x[2]+1
+    y2=x[3]+1
     #this is the control the light 
     #print(command,x1,x2,y1,y2)
     for i in range(x1,x2):
@@ -60,6 +54,14 @@ def calculate_light():
             number+=light[i][j]
     return number
 
+def check_command(num_list):
+    for i in range(len(num_list)):
+        if(num_list[i]<0):
+            num_list[i]=0
+        if(num_list[i]>N):
+            num_list[i]=N-1
+    return num_list
+
 def switch_light():
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', help='input help')
@@ -76,30 +78,22 @@ def switch_light():
     # process line   
         numbers_line=re.findall(r'\d+', line)
         numbers_line= [int(e) for e in numbers_line]
-        out_range=False
-        for i in range(len(numbers_line)):
-            if(numbers_line[i]>N):
-                out_range=True;
-                break
-        if(len(numbers_line)!=4 or out_range):
-            break
+        Not_consistent=False
+        if(numbers_line[0]>numbers_line[2] or numbers_line[1]>numbers_line[3]):
+            Not_consistent=True
+        if(len(numbers_line)!=4 or Not_consistent):
+            break         
+        check_command(numbers_line)
         values = line.strip().split()           
         if(values[0]=='switch'):
             values[0]='switch'
-            read_command(values[0],numbers_line)
         elif(values[0]=='turn' and values[1]=='off'):
             values[0]='off'
-            read_command(values[0],numbers_line)
         elif(values[0]=='turn' and values[1]=='on'):
             values[0]='on'
-            read_command(values[0],numbers_line)
+        read_command(values[0],numbers_line)
     print(link ,calculate_light())
-  
-
-if __name__=='__main__':
-    light()
-   
-
+    return  
 
 '''
 uri_a = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_a.txt"
