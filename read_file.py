@@ -8,6 +8,7 @@ import urllib.request
 import re
 import argparse
 from sklearn.metrics.cluster.unsupervised import check_number_of_labels
+from _ast import Num
 
 
 light=[0]
@@ -45,7 +46,7 @@ def read_command(command,x):
                     light[i][j]=0;   
                 else:
                     light[i][j]=0;
-    
+    #print(calculate_light())
     return light
 
 def calculate_light():
@@ -74,13 +75,14 @@ def switch_light(link):
     light=[ [0]*N for _ in range(N) ]
     for line in buffer[1:]:
     # process line   
-        numbers_line=re.findall(r'\d+', line)
+        numbers_line=re.findall("[-\d]+", line)
         numbers_line= [int(e) for e in numbers_line]
+        #print(numbers_line)
         Not_consistent=False
         if(numbers_line[0]>numbers_line[2] or numbers_line[1]>numbers_line[3]):
             Not_consistent=True
         if(len(numbers_line)!=4 or Not_consistent):
-            break
+            continue
         check_command(numbers_line)
         values = line.strip().split()           
         if(values[0]=='switch'):
@@ -94,7 +96,7 @@ def switch_light(link):
     return 
 
 
-uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_b_v2.txt"
+uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_c.txt"
 switch_light(uri)
 '''
 uri_a = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_a.txt"

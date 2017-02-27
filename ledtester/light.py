@@ -76,13 +76,13 @@ def switch_light():
     light=[ [0]*N for _ in range(N) ]
     for line in buffer[1:]:
     # process line   
-        numbers_line=re.findall(r'\d+', line)
+        numbers_line=re.findall("[-\d]+", line)
         numbers_line= [int(e) for e in numbers_line]
         Not_consistent=False
         if(numbers_line[0]>numbers_line[2] or numbers_line[1]>numbers_line[3]):
             Not_consistent=True
         if(len(numbers_line)!=4 or Not_consistent):
-            break         
+            continue         
         check_command(numbers_line)
         values = line.strip().split()           
         if(values[0]=='switch'):
